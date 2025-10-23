@@ -23,6 +23,8 @@ public class RacingGame {
         String inputTry = Console.readLine();
         int tryCount = Integer.parseInt(inputTry);
 
+        System.out.println("\n실행 결과");
+
         // 시도 횟수만큼 경주 실행
         for (int i = 1; i <= tryCount; i++){
             for (Car car : cars) {
@@ -31,6 +33,11 @@ public class RacingGame {
                     car.move();
                 }
             }
+            // 게임 결과 출력
+            for (Car car : cars) {
+                System.out.println(car.getName() + " : " + "-".repeat(car.getPosition()));
+            }
+            System.out.println("");
         }
 
         // 최대 전진 거리 판정
