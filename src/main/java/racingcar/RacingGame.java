@@ -12,16 +12,22 @@ public class RacingGame {
 
     public void run() {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        String inputName = Console.readLine();
+        String inputCarNames = Console.readLine();
 
-        String[] arrayNames = inputName.split(",");
+        String[] arrayNames = inputCarNames.split(",");
+
         for (String name : arrayNames) {
+            InputValidator.validateCarName(name.trim());
+
             cars.add(new Car(name.trim()));
         }
 
         System.out.println("시도할 횟수는 몇 회인가요?");
-        String inputTry = Console.readLine();
-        int tryCount = Integer.parseInt(inputTry);
+        String inputTryCount = Console.readLine();
+
+        InputValidator.validateTryCount(inputTryCount.trim());
+
+        int tryCount = Integer.parseInt(inputTryCount.trim());
 
         System.out.println("\n실행 결과");
 
