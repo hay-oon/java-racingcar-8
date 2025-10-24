@@ -1,9 +1,10 @@
 package racingcar;
 
-import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
+import racingcar.view.InputView;
+import racingcar.view.OutputView;
 
 public class RacingGame {
     private List<Car> cars = new ArrayList<>();
@@ -11,8 +12,7 @@ public class RacingGame {
     private int maxPosition = 0;
 
     public void run() {
-        System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        String inputCarNames = Console.readLine();
+        String inputCarNames = InputView.readCarNames();
 
         String[] arrayNames = inputCarNames.split(",");
 
@@ -22,15 +22,14 @@ public class RacingGame {
             cars.add(new Car(name.trim()));
         }
 
-        System.out.println("시도할 횟수는 몇 회인가요?");
-        String inputTryCount = Console.readLine();
+        String inputTryCount = InputView.readTryCount();
 
         InputValidator.validateTryCount(inputTryCount.trim());
 
         int tryCount = Integer.parseInt(inputTryCount.trim());
 
-        System.out.println("\n실행 결과");
-
+        OutputView.printGameStart();
+        
         // 시도 횟수만큼 경주 실행
         for (int i = 1; i <= tryCount; i++){
             for (Car car : cars) {
@@ -39,11 +38,7 @@ public class RacingGame {
                     car.move();
                 }
             }
-            // 게임 결과 출력
-            for (Car car : cars) {
-                System.out.println(car.getName() + " : " + "-".repeat(car.getPosition()));
-            }
-            System.out.println("");
+            OutputView.printResult(cars);
         }
 
         // 최대 전진 거리 판정
@@ -60,6 +55,6 @@ public class RacingGame {
             }
         }
 
-        System.out.println("최종 우승자 : " + String.join(", ", winners));
+        OutputView.printWinners(winners);
     }
 }
