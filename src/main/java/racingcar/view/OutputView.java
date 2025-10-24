@@ -4,8 +4,10 @@ import java.util.List;
 import racingcar.Car;
 
 public class OutputView {
+    private static final String GAME_START_MESSAGE = "실행 결과";
+
     public static void printGameStart() {
-        System.out.println("\n실행 결과");
+        System.out.println("\n" + GAME_START_MESSAGE);
     }
     
     public static void printResult(List<Car> cars) {
