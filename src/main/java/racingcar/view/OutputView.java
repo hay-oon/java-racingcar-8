@@ -1,7 +1,7 @@
 package racingcar.view;
 
 import java.util.List;
-import racingcar.Car;
+import racingcar.domain.Car;
 
 public class OutputView {
     private static final String GAME_START_MESSAGE = "실행 결과";

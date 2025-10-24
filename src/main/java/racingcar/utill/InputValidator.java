@@ -1,4 +1,4 @@
-package racingcar;
+package racingcar.utill;
 
 public class InputValidator {
     public static void validateCarName(String carName) {
