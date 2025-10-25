@@ -19,23 +19,17 @@ public class RacingGame {
 
     public void run() {
         String inputCarNames = InputView.readCarNames();
-
         createCars(inputCarNames);
 
         String inputTryCount = InputView.readTryCount();
-
         InputValidator.validateTryCount(inputTryCount.trim());
-
         int tryCount = Integer.parseInt(inputTryCount.trim());
 
         OutputView.printGameStart();
-
         playGame(cars, tryCount);
 
         int maxPosition = getMaxPosition(cars);
-
         findWinners(cars, maxPosition);
-
         OutputView.printWinners(winners);
     }
 
