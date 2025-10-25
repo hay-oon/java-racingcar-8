@@ -31,22 +31,29 @@ public class RacingGame {
 
         OutputView.printGameStart();
 
-        // 시도 횟수만큼 경주 실행
-        for (int i = 1; i <= tryCount; i++) {
-            for (Car car : cars) {
-                int randomNumber = Randoms.pickNumberInRange(0, 9);
-                if (randomNumber > 3) {
-                    car.move();
-                }
-            }
-            OutputView.printResult(cars);
-        }
+        playGame(cars, tryCount);
 
-       int maxPosition = getMaxPosition(cars);
+        int maxPosition = getMaxPosition(cars);
 
         decideWinners(cars, maxPosition);
 
         OutputView.printWinners(winners);
+    }
+
+    private void playGame(List<Car> cars, int tryCount) {
+        for (int i = 1; i <= tryCount; i++) {
+            moveCars(cars);
+            OutputView.printResult(cars);
+        }
+    }
+
+    private void moveCars(List<Car> cars) {
+        for (Car car : cars) {
+            int randomNumber = Randoms.pickNumberInRange(0, 9);
+            if (randomNumber > 3) {
+                car.move();
+            }
+        }
     }
 
     private int getMaxPosition(List<Car> cars) {
