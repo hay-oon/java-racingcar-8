@@ -9,12 +9,17 @@ import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
 public class RacingGame {
+
+    private static final int MOVE_CONDITION = 4;
+    private static final int RANDOM_NUMBER_MIN = 0;
+    private static final int RANDOM_NUMBER_MAX = 9;
+
     private List<Car> cars = new ArrayList<>();
     private List<String> winners = new ArrayList<>();
 
     public void run() {
         String inputCarNames = InputView.readCarNames();
-        
+
         createCars(inputCarNames);
 
         String inputTryCount = InputView.readTryCount();
@@ -52,8 +57,8 @@ public class RacingGame {
 
     private void moveCars(List<Car> cars) {
         for (Car car : cars) {
-            int randomNumber = Randoms.pickNumberInRange(0, 9);
-            if (randomNumber > 3) {
+            int randomNumber = Randoms.pickNumberInRange(RANDOM_NUMBER_MIN, RANDOM_NUMBER_MAX);
+            if (randomNumber >= MOVE_CONDITION) {
                 car.move();
             }
         }
