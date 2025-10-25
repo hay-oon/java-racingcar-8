@@ -14,14 +14,8 @@ public class RacingGame {
 
     public void run() {
         String inputCarNames = InputView.readCarNames();
-
-        String[] arrayNames = inputCarNames.split(",");
-
-        for (String name : arrayNames) {
-            InputValidator.validateCarName(name.trim());
-
-            cars.add(new Car(name.trim()));
-        }
+        
+        createCars(inputCarNames);
 
         String inputTryCount = InputView.readTryCount();
 
@@ -38,6 +32,15 @@ public class RacingGame {
         decideWinners(cars, maxPosition);
 
         OutputView.printWinners(winners);
+    }
+
+
+    private void createCars(String inputCarNames) {
+        String[] arrayNames = inputCarNames.split(",");
+        for (String name : arrayNames) {
+            InputValidator.validateCarName(name.trim());
+            cars.add(new Car(name.trim()));
+        }
     }
 
     private void playGame(List<Car> cars, int tryCount) {
