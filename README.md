@@ -43,10 +43,10 @@
 
 ### 예외 처리
 
-- [ ] 자동차 이름이 5자 초과 시 IllegalArgumentException 발생
-- [ ] 시도 횟수가 숫자가 아닐 때 IllegalArgumentException 발생
-- [ ] 시도 횟수가 0 이하일 때 IllegalArgumentException 발생
-- [ ] 자동차 이름이 비어있을 때 IllegalArgumentException 발생
+- [x] 자동차 이름이 5자 초과 시 IllegalArgumentException 발생
+- [x] 시도 횟수가 숫자가 아닐 때 IllegalArgumentException 발생
+- [x] 시도 횟수가 0 이하일 때 IllegalArgumentException 발생
+- [x] 자동차 이름이 비어있을 때 IllegalArgumentException 발생
 
 ### 테스트
 
