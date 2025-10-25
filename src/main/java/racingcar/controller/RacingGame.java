@@ -34,7 +34,7 @@ public class RacingGame {
 
         int maxPosition = getMaxPosition(cars);
 
-        decideWinners(cars, maxPosition);
+        findWinners(cars, maxPosition);
 
         OutputView.printWinners(winners);
     }
@@ -74,7 +74,7 @@ public class RacingGame {
         return maxPosition;
     }
     
-    private void decideWinners(List<Car> cars, int maxPosition) {
+    private void findWinners(List<Car> cars, int maxPosition) {
         for (Car car : cars) {
             if (car.getPosition() == maxPosition) {
                 winners.add(car.getName());
