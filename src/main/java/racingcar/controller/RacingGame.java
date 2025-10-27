@@ -19,7 +19,7 @@ public class RacingGame {
     private List<Car> cars = new ArrayList<>();
     private List<String> winners = new ArrayList<>();
 
-    public void run() {
+    public void play() {
         String inputCarNames = InputView.readCarNames();
         cars = carRegistrar.registerCars(inputCarNames);
 
