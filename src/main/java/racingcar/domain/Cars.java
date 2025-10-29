@@ -1,8 +1,10 @@
 package racingcar.domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import camp.nextstep.edu.missionutils.Randoms;
+import racingcar.utill.InputValidator;
 
 /**
  * 일급 컬렉션: 자동차 목록을 관리하는 도메인 객체
@@ -24,8 +26,8 @@ public class Cars {
         List<Car> carList = new ArrayList<>();
         
         for (String name : carNames) {
-            racingcar.utill.InputValidator.validateCarName(name.trim());
-            carList.add(new Car(name.trim()));
+            InputValidator.validateCarName(name);
+            carList.add(new Car(name));
         }
         
         return new Cars(carList);
@@ -37,7 +39,7 @@ public class Cars {
      */
     public void race() {
         for (Car car : cars) {
-            int randomNumber = camp.nextstep.edu.missionutils.Randoms
+            int randomNumber = Randoms
                 .pickNumberInRange(0, 9);
             if (randomNumber >= 4) {
                 car.move();
@@ -62,11 +64,8 @@ public class Cars {
         return new Winners(winnerNames);
     }
 
-    /**
-     * 내부 데이터를 직접 노출하지 않고 복사본 반환 (캡슐화)
-     */
     public List<Car> getCars() {
-        return Collections.unmodifiableList(cars);
+        return new ArrayList<>(cars);
     }
 
     private int getMaxPosition() {

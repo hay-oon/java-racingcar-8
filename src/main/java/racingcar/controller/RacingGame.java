@@ -5,11 +5,6 @@ import racingcar.domain.Winners;
 import racingcar.utill.InputValidator;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
-
-/**
- * 컨트롤러: 오케스트레이션만 담당
- * 객체지향 원칙: 각 객체가 자신의 책임만 가짐
- */
 public class RacingGame {
 
     /**
@@ -19,12 +14,12 @@ public class RacingGame {
      */
     public void play() {
         // 1. 입력받고 검증
-        String inputCarNames = InputView.readCarNames();
+        String inputCarNames = InputView.readCarNames().trim();
         Cars cars = Cars.from(inputCarNames); // Cars가 생성과 검증을 담당
 
-        String inputTryCount = InputView.readTryCount();
-        InputValidator.validateTryCount(inputTryCount.trim());
-        int tryCount = Integer.parseInt(inputTryCount.trim());
+        String inputTryCount = InputView.readTryCount().trim();
+        InputValidator.validateTryCount(inputTryCount);
+        int tryCount = Integer.parseInt(inputTryCount);
 
         // 2. 게임 시작
         OutputView.printGameStart();
