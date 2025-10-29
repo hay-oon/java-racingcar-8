@@ -1,40 +1,42 @@
 package racingcar.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import racingcar.domain.Car;
-import racingcar.domain.CarRegistrar;
-import racingcar.domain.RaceProcessor;
-import racingcar.domain.WinnerCalculator;
+import racingcar.domain.Cars;
+import racingcar.domain.Winners;
 import racingcar.utill.InputValidator;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
+/**
+ * 컨트롤러: 오케스트레이션만 담당
+ * 객체지향 원칙: 각 객체가 자신의 책임만 가짐
+ */
 public class RacingGame {
 
-    private final WinnerCalculator winnerCalculator = new WinnerCalculator();
-    private final RaceProcessor raceProcessor = new RaceProcessor();
-    private final CarRegistrar carRegistrar = new CarRegistrar();
-
-    private List<Car> cars = new ArrayList<>();
-    private List<String> winners = new ArrayList<>();
-
+    /**
+     * [개선 포인트 1] 단순히 흐름만 제어
+     * 모든 로직은 도메인 객체(Cars)가 담당
+     * RacingGame은 "누가, 언제"만 결정 (Orchestration)
+     */
     public void play() {
+        // 1. 입력받고 검증
         String inputCarNames = InputView.readCarNames();
-        cars = carRegistrar.registerCars(inputCarNames);
+        Cars cars = Cars.from(inputCarNames); // Cars가 생성과 검증을 담당
 
         String inputTryCount = InputView.readTryCount();
         InputValidator.validateTryCount(inputTryCount.trim());
         int tryCount = Integer.parseInt(inputTryCount.trim());
 
+        // 2. 게임 시작
         OutputView.printGameStart();
-        
-        for (int i = 1; i <= tryCount; i++) {
-            raceProcessor.processRace(cars);
-            OutputView.printResult(cars);
+
+        // 3. 경주 실행 - cars가 자신의 상태를 관리하며 경주 진행
+        for (int i = 0; i < tryCount; i++) {
+            cars.race(); // Cars가 자신의 경주 로직을 가짐
+            OutputView.printResult(cars.getCars());
         }
 
-        winners = winnerCalculator.calculateWinners(cars);
-        OutputView.printWinners(winners);
+        // 4. 우승자 계산 - cars가 자신의 데이터로 우승자 찾음
+        Winners winners = cars.findWinners();
+        OutputView.printWinners(winners.getWinnerNames());
     }
 }
