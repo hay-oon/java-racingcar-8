@@ -11,9 +11,9 @@ public class OutputView {
     }
     
     public static void printResult(List<Car> cars) {
-        for (Car car : cars) {
-            System.out.println(car.getName() + " : " + "-".repeat(car.getPosition()));
-        }
+        cars.forEach(car -> 
+            System.out.println(car.getName() + " : " + "-".repeat(car.getPosition()))
+        );
         System.out.println("");
     }
 

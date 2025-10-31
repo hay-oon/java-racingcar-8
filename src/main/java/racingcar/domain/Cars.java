@@ -1,10 +1,10 @@
 package racingcar.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import camp.nextstep.edu.missionutils.Randoms;
-import racingcar.utill.InputValidator;
 
 /**
  * 일급 컬렉션: 자동차 목록을 관리하는 도메인 객체
@@ -22,13 +22,9 @@ public class Cars {
      * 생성 로직을 Cars가 담당하므로 독립적인 객체가 됨
      */
     public static Cars from(String inputCarNames) {
-        String[] carNames = inputCarNames.split(",");
-        List<Car> carList = new ArrayList<>();
-        
-        for (String name : carNames) {
-            InputValidator.validateCarName(name);
-            carList.add(new Car(name));
-        }
+        List<Car> carList = Arrays.stream(inputCarNames.split(","))
+            .map(Car::new)
+            .toList();
         
         return new Cars(carList);
     }
@@ -38,13 +34,12 @@ public class Cars {
      * 경주 로직을 Cars가 가지고 있음 (데이터 + 행동의 결합)
      */
     public void race() {
-        for (Car car : cars) {
-            int randomNumber = Randoms
-                .pickNumberInRange(0, 9);
+        cars.forEach(car -> {
+            int randomNumber = Randoms.pickNumberInRange(0, 9);
             if (randomNumber >= 4) {
                 car.move();
             }
-        }
+        });
     }
 
     /**
@@ -53,13 +48,10 @@ public class Cars {
      */
     public Winners findWinners() {
         int maxPosition = getMaxPosition();
-        List<String> winnerNames = new ArrayList<>();
-        
-        for (Car car : cars) {
-            if (car.getPosition() == maxPosition) {
-                winnerNames.add(car.getName());
-            }
-        }
+        List<String> winnerNames = cars.stream()
+            .filter(car -> car.getPosition() == maxPosition)
+            .map(Car::getName)
+            .toList();
         
         return new Winners(winnerNames);
     }
@@ -69,13 +61,10 @@ public class Cars {
     }
 
     private int getMaxPosition() {
-        int maxPosition = 0;
-        for (Car car : cars) {
-            if (car.getPosition() > maxPosition) {
-                maxPosition = car.getPosition();
-            }
-        }
-        return maxPosition;
+        return cars.stream()
+            .mapToInt(Car::getPosition)
+            .max()
+            .orElse(0);
     }
 }
 
